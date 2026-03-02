@@ -14,7 +14,7 @@ interface CentralityInterface
      *
      * @return list<Score>
      */
-    public function pageRank(float $damping = 0.85, int $iterations = 10): array;
+    public function pageRank(float $damping = 0.85, int $iterations = 20): array;
 
     /**
      * Returns top `$limit` results of PageRank algorithm, ordered from highest to lowest score
@@ -28,7 +28,7 @@ interface CentralityInterface
      *
      * @return list<Degree>
      */
-    public function degreeCentrality(): array;
+    public function degree(): array;
 
     /**
      * Returns betweenness centrality for all nodes
@@ -38,7 +38,7 @@ interface CentralityInterface
      *
      * @return list<Score>
      */
-    public function betweennessCentrality(): array;
+    public function betweenness(): array;
 
     /**
      * Returns closeness centrality for all nodes
@@ -49,7 +49,7 @@ interface CentralityInterface
      *
      * @return list<Score>
      */
-    public function closenessCentrality(): array;
+    public function closeness(): array;
 
     /**
      * Returns eigenvector centrality for all nodes
@@ -62,5 +62,5 @@ interface CentralityInterface
      *
      * @return list<Score>
      */
-    public function eigenvectorCentrality(int $iterations = 100): array;
+    public function eigenvector(int $iterations = 100): array;
 }

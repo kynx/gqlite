@@ -41,7 +41,7 @@ final readonly class Centrality implements CentralityInterface
         return $this->mapCentralityScores($results);
     }
 
-    public function degreeCentrality(): array
+    public function degree(): array
     {
         /** @var Result<array{column_0: CentralityDegreeRow}> $results */
         $results = $this->connection->cypher('RETURN degreeCentrality()');
@@ -59,7 +59,7 @@ final readonly class Centrality implements CentralityInterface
         return $degrees;
     }
 
-    public function betweennessCentrality(): array
+    public function betweenness(): array
     {
         /** @var Result<array{column_0: CentralityScoreRow}> $results */
         $results = $this->connection->cypher('RETURN betweennessCentrality()');
@@ -67,7 +67,7 @@ final readonly class Centrality implements CentralityInterface
         return $this->mapCentralityScores($results);
     }
 
-    public function closenessCentrality(): array
+    public function closeness(): array
     {
         /** @var Result<array{column_0: CentralityScoreRow}> $results */
         $results = $this->connection->cypher('RETURN closenessCentrality()');
@@ -75,7 +75,7 @@ final readonly class Centrality implements CentralityInterface
         return $this->mapCentralityScores($results);
     }
 
-    public function eigenvectorCentrality(int $iterations = 100): array
+    public function eigenvector(int $iterations = 100): array
     {
         /** @var Result<array{column_0: CentralityScoreRow}> $results */
         $results = $this->connection->cypher(

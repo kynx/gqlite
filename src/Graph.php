@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kynx\GqLite;
 
 use Kynx\GqLite\Cypher\Result;
+use Kynx\GqLite\Graph\Centrality;
 use Kynx\GqLite\Graph\Edges;
 use Kynx\GqLite\Graph\Nodes;
 use Kynx\GqLite\Graph\Queries;
@@ -16,6 +17,7 @@ final readonly class Graph implements GraphInterface
     private function __construct(
         public Nodes $nodes,
         public Edges $edges,
+        public Centrality $centrality,
         public Traversals $traversals,
         private Queries $queries
     ) {
@@ -31,6 +33,7 @@ final readonly class Graph implements GraphInterface
         return new self(
             new Nodes($connection),
             new Edges($connection),
+            new Centrality($connection),
             new Traversals($connection),
             new Queries($connection)
         );

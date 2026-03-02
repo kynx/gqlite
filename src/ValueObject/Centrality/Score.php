@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Kynx\GqLite\ValueObject\Centrality;
 
 /**
- * @phpstan-type CentralityScoreRow = array{user_id: string, score: int}
+ * @phpstan-type CentralityScoreRow = array{user_id: string, score: float}
  */
 final readonly class Score
 {

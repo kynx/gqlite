@@ -77,13 +77,13 @@ final class CentralityTest extends TestCase
         self::assertEquals($expected, $actual);
     }
 
-    public function testDegreeCentralityWithEmptyGraph(): void
+    public function testDegreeWithEmptyGraph(): void
     {
-        $actual = $this->algorithms->degreeCentrality();
+        $actual = $this->algorithms->degree();
         self::assertSame([], $actual);
     }
 
-    public function testDegreeCentralityReturnsDegrees(): void
+    public function testDegreeReturnsDegrees(): void
     {
         $expected = [
             new Degree('dc1', 0, 2, 2),
@@ -97,17 +97,17 @@ final class CentralityTest extends TestCase
         $this->edges->upsert(new Edge('dc1', 'dc3'));
         $this->edges->upsert(new Edge('dc2', 'dc3'));
 
-        $actual = $this->algorithms->degreeCentrality();
+        $actual = $this->algorithms->degree();
         self::assertEquals($expected, $actual);
     }
 
-    public function testBetweennessCentralityWithEmptyGraph(): void
+    public function testBetweennessWithEmptyGraph(): void
     {
-        $actual = $this->algorithms->betweennessCentrality();
+        $actual = $this->algorithms->betweenness();
         self::assertSame([], $actual);
     }
 
-    public function testBetweennessCentralityReturnsScores(): void
+    public function testBetweennessReturnsScores(): void
     {
         $expected = [
             new Score('b1', 0.0),
@@ -120,17 +120,17 @@ final class CentralityTest extends TestCase
         $this->edges->upsert(new Edge('b1', 'b2'));
         $this->edges->upsert(new Edge('b2', 'b3'));
 
-        $actual = $this->algorithms->betweennessCentrality();
+        $actual = $this->algorithms->betweenness();
         self::assertEquals($expected, $actual);
     }
 
-    public function testClosenessCentralityWithEmptyGraph(): void
+    public function testClosenessWithEmptyGraph(): void
     {
-        $actual = $this->algorithms->closenessCentrality();
+        $actual = $this->algorithms->closeness();
         self::assertSame([], $actual);
     }
 
-    public function testClosenessCentralityReturnsScores(): void
+    public function testClosenessReturnsScores(): void
     {
         $expected = [
             new Score('ch', 1.0),
@@ -153,17 +153,17 @@ final class CentralityTest extends TestCase
         $this->edges->upsert(new Edge('c3', 'ch'));
         $this->edges->upsert(new Edge('c4', 'ch'));
 
-        $actual = $this->algorithms->closenessCentrality();
+        $actual = $this->algorithms->closeness();
         self::assertEquals($expected, $actual);
     }
 
-    public function testEigenvectorCentralityWithEmptyGraph(): void
+    public function testEigenvectorWithEmptyGraph(): void
     {
-        $actual = $this->algorithms->eigenvectorCentrality();
+        $actual = $this->algorithms->eigenvector();
         self::assertSame([], $actual);
     }
 
-    public function testEigenvectorCentralityReturnsScores(): void
+    public function testEigenvectorReturnsScores(): void
     {
         $expected = [
             new Score('e3', 1.0),
@@ -177,7 +177,7 @@ final class CentralityTest extends TestCase
         $this->edges->upsert(new Edge('e1', 'e2'));
         $this->edges->upsert(new Edge('e2', 'e3'));
 
-        $actual = $this->algorithms->eigenvectorCentrality(50);
+        $actual = $this->algorithms->eigenvector(50);
         self::assertEquals($expected, $actual);
     }
 
