@@ -71,16 +71,19 @@ To learn more about Cypher, see the [Neo4J manual]. GraphQLite supports a subset
 
 To learn more about GraphQLite, see the excellent [documentation].
 
-## Nodes and Edges
+## The `Graph` object
 
 The `Graph` object has a number entrypoints:
 
-| Entrypoint          | Description                        |
-|---------------------|------------------------------------|
-| `Graph::nodes`      | CRUD operations on nodes           |
-| `Graph::edges`      | CRUD operations on edges           |
-| `Graph::traversals` | Breadth and depth-first traversals |
-| `Graph::query()`    | Execute raw Cypher queries         |
+| Entrypoint          | Description                            |
+|---------------------|----------------------------------------|
+| `Graph::nodes`      | CRUD operations on nodes               |
+| `Graph::edges`      | CRUD operations on edges               |
+| `Graph::centrality` | Algorithms for ranking node importance |
+| `Graph::traversals` | Breadth and depth-first traversals     |
+| `Graph::query()`    | Execute raw Cypher queries             |
+
+### Nodes and Edges
 
 The CRUD operations consume and return `Node` and `Edge` value objects.
 
@@ -90,7 +93,7 @@ associated with the node. Labels are like tags, and are used to query the databa
 An `Edge` connects two nodes. It has a source ID, a target ID, a relation type and an associative array of properties.
 As with node labels, the relation type is used query the database for specific types of relations.
 
-## Queries
+### Queries
 
 The `Graph::query()` method returns a `Result` object. Iterating that will give you an associate array. For example,
 `MATCH (n {id: 'alice'}) RETURN n` will give you a structure like:
@@ -130,10 +133,10 @@ foreach ($results as $row) {
 
 See [static-analysis.php] in the `examples` directory for the full code, with type-safety thrown in.
 
-### Parameters
+#### Parameters
 
 Just as with SQL, do **not** pass user input directly into the query. Instead use placeholders and parameters to ensure
-they are sanitized. Cypher uses the dollar sign to denote a placeholder:
+they are sanitized. Cypher uses the dollar sign (`$`) to denote a placeholder:
 
 ```php
 $results = $graph->query(
@@ -144,6 +147,19 @@ $results = $graph->query(
 
 **Make sure your query is single-quoted so PHP variables are not expanded!**
 
+### Centrality
+
+Algorithms for ranking node importance.
+
+| Method                              | Description                                                                |
+|-------------------------------------|----------------------------------------------------------------------------|
+| `Graph::centrality::betweenness()`  | Ranks nodes based on how often a node lies on shortest path between nodes. |
+| `Graph::centrality::closeness()`    | Ranks nodes based on how close a node is to all other nodes                |
+| `Graph::centrality::degree()`       | Returns the in-degree, out-degree, and total degree for each node          |
+| `Graph::centrality::eigenvector()`  | Ranks nodes based on connections to other important nodes                  |
+| `Graph::centrality::pageRank()`     | Ranks nodes based on [PageRank] algorithm                                  |
+| `Graph::centrality::topPageRank()`  | As above, but only returns the first `n` results                           |
+
 [GraphQLite]: https://github.com/colliery-io/graphqlite
 [SQLite]: https://www.sqlite.org/
 [GraphQL protocol]: https://graphql.org
@@ -153,3 +169,4 @@ $results = $graph->query(
 [Neo4J manual]: https://neo4j.com/docs/cypher-manual/current/introduction/
 [documentation]: https://colliery-io.github.io/graphqlite/latest/introduction.html
 [static-analysis.php]: ./examples/static-analysis.php
+[PageRank]: https://en.wikipedia.org/wiki/PageRank

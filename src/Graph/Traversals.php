@@ -12,7 +12,7 @@ use Kynx\GqLite\ValueObject\Traversal;
 use function sprintf;
 
 /**
- * @psalm-type TraversalRow = array{column_0: array{user_id: string, depth: int, order: int}}
+ * @psalm-import-type TraversalRow from Traversal
  */
 final readonly class Traversals implements TraversalsInterface
 {
@@ -28,7 +28,7 @@ final readonly class Traversals implements TraversalsInterface
 //                'RETURN bfs($startId)',
 //                ['startId' => $startId]
 //            );
-            /** @var Result<TraversalRow> $results */
+            /** @var Result<array{column_0: TraversalRow}> $results */
             $results = $this->connection->cypher(
                 sprintf("RETURN bfs('%s')", CypherUtil::escape($startId))
             );
@@ -37,13 +37,13 @@ final readonly class Traversals implements TraversalsInterface
 //                'RETURN bfs($startId, $maxDepth)',
 //                ['startId' => $startId, 'maxDepth' => $maxDepth]
 //            );
-            /** @var Result<TraversalRow> $results */
+            /** @var Result<array{column_0: TraversalRow}> $results */
             $results = $this->connection->cypher(
                 sprintf("RETURN bfs('%s', %d)", CypherUtil::escape($startId), $maxDepth)
             );
         }
 
-        return $this->mapResults($results);
+        return $this->mapTraversals($results);
     }
 
     public function depthFirst(string $startId, ?int $maxDepth = null): array
@@ -53,7 +53,7 @@ final readonly class Traversals implements TraversalsInterface
 //                'RETURN dfs($startId)',
 //                ['startId' => $startId]
 //            );
-            /** @var Result<TraversalRow> $results */
+            /** @var Result<array{column_0: TraversalRow}> $results */
             $results = $this->connection->cypher(
                 sprintf("RETURN dfs('%s')", $startId),
             );
@@ -62,20 +62,20 @@ final readonly class Traversals implements TraversalsInterface
 //                'RETURN dfs($startId, $maxDepth)',
 //                ['startId' => $startId, 'maxDepth' => $maxDepth]
 //            );
-            /** @var Result<TraversalRow> $results */
+            /** @var Result<array{column_0: TraversalRow}> $results */
             $results = $this->connection->cypher(
                 sprintf("RETURN dfs('%s', %d)", $startId, $maxDepth),
             );
         }
 
-        return $this->mapResults($results);
+        return $this->mapTraversals($results);
     }
 
     /**
-     * @param Result<TraversalRow> $results
+     * @param Result<array{column_0: TraversalRow}> $results
      * @return list<Traversal>
      */
-    private function mapResults(Result $results): array
+    private function mapTraversals(Result $results): array
     {
         $traversals = [];
         $current    = $results->current();
