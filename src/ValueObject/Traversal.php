@@ -6,6 +6,9 @@ namespace Kynx\GqLite\ValueObject;
 
 use function get_object_vars;
 
+/**
+ * @phpstan-type TraversalRow = array{user_id: string, depth: scalar, order: scalar}
+ */
 final readonly class Traversal
 {
     public function __construct(public string $nodeId, public int $depth, public int $order)
