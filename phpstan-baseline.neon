@@ -31,6 +31,12 @@ parameters:
 			path: src/Graph.php
 
 		-
+			message: '#^Offset ''n'' on array\{n\: array\{labels\: array\<string\>, properties\: array\{id\?\: string\}\}\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: src/Graph/Nodes.php
+
+		-
 			message: '#^Method Kynx\\GqLite\\Graph\\Queries\:\:query\(\) return type with generic class Kynx\\GqLite\\Cypher\\Result does not specify its types\: T$#'
 			identifier: missingType.generics
 			count: 1
@@ -47,15 +53,3 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: src/GraphInterface.php
-
-		-
-			message: '#^Parameter \#1 \$a of static method Kynx\\GqLite\\ValueObject\\Util\:\:propertiesAreEqual\(\) expects array\<string, mixed\>, array\<mixed, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/ValueObject/Util.php
-
-		-
-			message: '#^Parameter \#2 \$b of static method Kynx\\GqLite\\ValueObject\\Util\:\:propertiesAreEqual\(\) expects array\<string, mixed\>, array\<mixed, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/ValueObject/Util.php

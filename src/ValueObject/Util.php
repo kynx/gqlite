@@ -22,8 +22,8 @@ final readonly class Util
      * Arrays are considered equal if they have the same keys and the associated values
      * are strictly equal - (ie stricter than just `[1] == ['1']`)
      *
-     * @param array<string, mixed> $a
-     * @param array<string, mixed> $b
+     * @param array<mixed> $a
+     * @param array<mixed> $b
      */
     public static function propertiesAreEqual(array $a, array $b): bool
     {
