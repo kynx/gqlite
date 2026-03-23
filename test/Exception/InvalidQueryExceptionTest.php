@@ -21,7 +21,7 @@ final class InvalidQueryExceptionTest extends TestCase
         $statement->method('errorCode')
             ->willReturn('HY000');
         $statement->method('errorInfo')
-            ->willReturn(['Error Info']);
+            ->willReturn(['SQL123', 123, 'Error Info']);
         $previous = new Exception('foo');
 
         $actual = InvalidQueryException::fromPdoException($statement, $previous);
