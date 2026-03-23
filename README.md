@@ -160,6 +160,11 @@ Algorithms for ranking node importance.
 | `Graph::centrality::pageRank()`     | Ranks nodes based on [PageRank] algorithm                                  |
 | `Graph::centrality::topPageRank()`  | As above, but only returns the first `n` results                           |
 
+## Supported Versions
+
+This library aims to support the latest version of [GraphQLite]. Older versions may work, but we do not test against
+them. Currently GraphQLite is pre-1.0.
+
 [GraphQLite]: https://github.com/colliery-io/graphqlite
 [SQLite]: https://www.sqlite.org/
 [GraphQL protocol]: https://graphql.org
