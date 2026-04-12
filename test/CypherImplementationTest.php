@@ -99,19 +99,17 @@ final class CypherImplementationTest extends TestCase
         self::assertSame($expected, $row['properties']['foo']);
     }
 
-    /**
-     * Dates are not saved either
-     */
     public function testDateInProperties(): void
     {
-        $this->connection->cypher("CREATE (n:Test {id: 'test', foo: date('2025-02-07')})");
+        $expected = '2025-02-07';
+        $this->connection->cypher("CREATE (n:Test {id: 'test', foo: date('$expected')})");
 
         $result = $this->connection->cypher("MATCH (n {id: 'test'}) RETURN n");
         $row    = $result->current()['n'];
         self::assertIsArray($row);
         self::assertArrayHasKey('properties', $row);
         self::assertIsArray($row['properties']);
-        self::assertArrayNotHasKey('foo', $row['properties']);
+        self::assertSame($expected, $row['properties']['foo']);
     }
 
     public function testPropertiesWithInvalidIdentifier(): void
@@ -155,9 +153,6 @@ final class CypherImplementationTest extends TestCase
         self::assertSame($expected, $row['labels']);
     }
 
-    /**
-     * Multiple labels might be saved, but they're not returned :(
-     */
     public function testMultipleLabels(): void
     {
         $expected = ['A', 'B', 'C'];
